@@ -29,3 +29,28 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+
+@{
+    var amounts = new List<decimal> { 100, 25.50m, -20, 0 };
+
+    foreach (var amount in amounts)
+    {
+        <li>@FormatAmount(amount)</li>
+    }
+
+}
+
+
+@helper FormatAmount(decimal amount)
+{
+
+    var color = "green";
+
+    if (amount < 0)
+    {
+        color = "red";
+    }
+
+    <span style="color:@color">Amount is: @amount</span>
+}

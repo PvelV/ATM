@@ -23,8 +23,29 @@ namespace ATM.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
+            ViewBag.TheMessage="";
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Message(string message)
+        {
+            ViewBag.Message = "Your contact page.";
+            ViewBag.TheMessage = message+="  Thanks we got your message";
+
+            return View("Contact");
+        }
+
+
+        public ActionResult Serial(string letterCase)
+        {
+            var serial = "ASPNETMVCATM";
+
+            if (letterCase=="lower")
+            {
+                return Content(serial.ToLower());
+            }
+            return Content(serial);
         }
     }
 }
