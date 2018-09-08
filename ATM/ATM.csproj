@@ -198,6 +198,7 @@
     <Compile Include="Controllers\CheckingAccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,11 +226,32 @@
     <Compile Include="Migrations\201809081659096_initialMigration4.Designer.cs">
       <DependentUpon>201809081659096_initialMigration4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809081726411_TransactionsAdded.cs" />
+    <Compile Include="Migrations\201809081726411_TransactionsAdded.Designer.cs">
+      <DependentUpon>201809081726411_TransactionsAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809081729443_TransactionsAdded1.cs" />
+    <Compile Include="Migrations\201809081729443_TransactionsAdded1.Designer.cs">
+      <DependentUpon>201809081729443_TransactionsAdded1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809081857467_TransactionsAdded2.cs" />
+    <Compile Include="Migrations\201809081857467_TransactionsAdded2.Designer.cs">
+      <DependentUpon>201809081857467_TransactionsAdded2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809081858263_TransactionsAdded3.cs" />
+    <Compile Include="Migrations\201809081858263_TransactionsAdded3.Designer.cs">
+      <DependentUpon>201809081858263_TransactionsAdded3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809081907154_TransactionsAdded4.cs" />
+    <Compile Include="Migrations\201809081907154_TransactionsAdded4.Designer.cs">
+      <DependentUpon>201809081907154_TransactionsAdded4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CheckingAccount.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -295,6 +317,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\CheckingAccount\Details.cshtml" />
     <Content Include="Views\CheckingAccount\Create.cshtml" />
+    <Content Include="Views\Transaction\Deposit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -330,6 +353,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809081659096_initialMigration4.resx">
       <DependentUpon>201809081659096_initialMigration4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081726411_TransactionsAdded.resx">
+      <DependentUpon>201809081726411_TransactionsAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081729443_TransactionsAdded1.resx">
+      <DependentUpon>201809081729443_TransactionsAdded1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081857467_TransactionsAdded2.resx">
+      <DependentUpon>201809081857467_TransactionsAdded2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081858263_TransactionsAdded3.resx">
+      <DependentUpon>201809081858263_TransactionsAdded3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081907154_TransactionsAdded4.resx">
+      <DependentUpon>201809081907154_TransactionsAdded4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

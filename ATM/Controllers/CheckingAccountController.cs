@@ -30,7 +30,7 @@ namespace ATM.Controllers
 
         // POST: CheckingAccount/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CheckingAccount checkingAccount)
         {
             try
             {
