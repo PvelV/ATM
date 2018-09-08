@@ -29,5 +29,7 @@ namespace ATM.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<CheckingAccount> CheckingAccounts { get; set; }
     }
 }

@@ -201,6 +201,31 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809081227025_InitialCreate.cs" />
+    <Compile Include="Migrations\201809081227025_InitialCreate.Designer.cs">
+      <DependentUpon>201809081227025_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809081604161_initialMigration.cs" />
+    <Compile Include="Migrations\201809081604161_initialMigration.Designer.cs">
+      <DependentUpon>201809081604161_initialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809081625302_initialMigration1.cs" />
+    <Compile Include="Migrations\201809081625302_initialMigration1.Designer.cs">
+      <DependentUpon>201809081625302_initialMigration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809081627247_initialMigration2.cs" />
+    <Compile Include="Migrations\201809081627247_initialMigration2.Designer.cs">
+      <DependentUpon>201809081627247_initialMigration2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809081629401_initialMigration3.cs" />
+    <Compile Include="Migrations\201809081629401_initialMigration3.Designer.cs">
+      <DependentUpon>201809081629401_initialMigration3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809081659096_initialMigration4.cs" />
+    <Compile Include="Migrations\201809081659096_initialMigration4.Designer.cs">
+      <DependentUpon>201809081659096_initialMigration4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CheckingAccount.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -286,6 +311,26 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201809081227025_InitialCreate.resx">
+      <DependentUpon>201809081227025_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081604161_initialMigration.resx">
+      <DependentUpon>201809081604161_initialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081625302_initialMigration1.resx">
+      <DependentUpon>201809081625302_initialMigration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081627247_initialMigration2.resx">
+      <DependentUpon>201809081627247_initialMigration2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081629401_initialMigration3.resx">
+      <DependentUpon>201809081629401_initialMigration3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809081659096_initialMigration4.resx">
+      <DependentUpon>201809081659096_initialMigration4.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -11,7 +12,9 @@ namespace ATM.Models
         public int Id { get; set; }
 
         [Required]
-        [RegularExpression(@"\d{6,10", ErrorMessage ="Account # must be between 6 and 10 digits ")]
+        [StringLength(10)]
+        [Column(TypeName ="varchar")]
+        [RegularExpression(@"\d{6,10}", ErrorMessage ="Account # must be between 6 and 10 digits ")]
         [Display(Name = "Account #")]
         public string AccountNumber { get; set; }
 
@@ -27,5 +30,10 @@ namespace ATM.Models
 
         [DataType(DataType.Currency)]
         public decimal Balance { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
+
+        [Required]
+        public string ApplicationUserId { get; set; }
     }
 }
