@@ -3,42 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit;
 using ATM;
 using ATM.Controllers;
 
 namespace ATM.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class HomeControllerTest
     {
-        [TestMethod]
-        public void Index()
+        [Test]
+        public void FooActionReturnsAboutView()
         {
             // Arrange
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Foo() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.AreEqual("About", result.ViewName);
         }
 
-        [TestMethod]
-        public void About()
+        [Test]
+        public void ContactFormSaysThanks()
         {
             // Arrange
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.About() as ViewResult;
+            ViewResult result = controller.Contact() as ViewResult;
 
             // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+            Assert.IsNotNull(result.ViewBag.TheMessage);
         }
 
-        [TestMethod]
+        [Test]
         public void Contact()
         {
             // Arrange

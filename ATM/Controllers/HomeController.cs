@@ -27,7 +27,7 @@ namespace ATM.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-            ViewBag.TheMessage="";
+            ViewBag.TheMessage = "Thanks!";
             return View();
         }
 
@@ -40,6 +40,10 @@ namespace ATM.Controllers
             return View("Contact");
         }
 
+        public ActionResult Foo()
+        {
+            return View("About");
+        }
 
         public ActionResult Serial(string letterCase)
         {
