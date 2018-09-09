@@ -37,7 +37,7 @@ namespace ATM.Controllers
             ViewBag.Message = "Your contact page.";
             ViewBag.TheMessage = message += "  Thanks we got your message";
 
-            return View("Contact");
+            return PartialView("_Message");
         }
 
         public ActionResult Foo()
