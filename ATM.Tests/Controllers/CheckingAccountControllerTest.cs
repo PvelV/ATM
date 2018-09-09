@@ -1,4 +1,5 @@
-﻿using ATM.Models;
+﻿using ATM.Controllers;
+using ATM.Models;
 using ATM.Repository;
 using ATM.Services;
 using ATM.Tests.MockObjects;
@@ -27,7 +28,6 @@ namespace ATM.Tests.Controllers
 
         }
         
-
         [Test]
         public void BalanceIsCorrectAfterDeposit()
         {
@@ -37,6 +37,22 @@ namespace ATM.Tests.Controllers
 
             Assert.That(db.CheckingAccounts.Count() == 1);
             Assert.That(db.CheckingAccounts.GetByUserId("0").Balance == 10);
+        }
+
+        [Test]
+        public void TransactionAddedToAccountBalance()
+        {
+
+            var account = new CheckingAccount { Id = 1, Balance = 0, AccountNumber = "0000" };
+            db.CheckingAccounts.Add(account);
+
+            var transaction = new Transaction { Amount = 200, CheckingAccountId = account.Id };
+
+            var transactionController = new TransactionController(db, new CheckingAccountService(db));
+            transactionController.Deposit(transaction);
+
+            Assert.AreEqual(transaction.Amount, account.Balance);
+
         }
     }
 }

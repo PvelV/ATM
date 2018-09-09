@@ -29,5 +29,13 @@ namespace ATM.Services
             db.CheckingAccounts.Add(checkingAccount);
             db.Complete();
         }
+
+        public void UpdateBalance(Transaction transaction)
+        {
+            db.Transactions.Add(transaction);
+            var account = db.CheckingAccounts.Get(transaction.CheckingAccountId).Balance += transaction.Amount;
+            db.Complete();
+        }
+
     }
 }
