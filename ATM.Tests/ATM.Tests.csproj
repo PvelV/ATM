@@ -134,7 +134,12 @@
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\CheckingAccountControllerTest.cs" />
+    <Compile Include="MockObjects\FakeCheckingAccountRepository.cs" />
     <Compile Include="MockObjects\FakeDbSet.cs" />
+    <Compile Include="MockObjects\FakeRepository.cs" />
+    <Compile Include="MockObjects\FakeTransactionRepository.cs" />
+    <Compile Include="MockObjects\FakeUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

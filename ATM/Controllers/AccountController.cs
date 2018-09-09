@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ATM.Models;
 using ATM.Services;
+using Unity;
 
 namespace ATM.Controllers
 {
@@ -156,7 +157,7 @@ namespace ATM.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var service = new CheckingAccountService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
+                    var service = new UnityContainer().Resolve<CheckingAccountService>();// (HttpContext.GetOwinContext().Get<ApplicationDbContext>());
                     service.CreateCheckingAccount(model.FirstName, model.LastName, user.Id, 0);
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -378,7 +379,7 @@ namespace ATM.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        var service = new CheckingAccountService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
+                        var service = new UnityContainer().Resolve<CheckingAccountService>();// (HttpContext.GetOwinContext().Get<ApplicationDbContext>());
                         service.CreateCheckingAccount("Facebook", "User", user.Id, 500);
 
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

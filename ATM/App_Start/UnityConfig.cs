@@ -1,5 +1,6 @@
 using ATM.Controllers;
 using ATM.Repository;
+using ATM.Services;
 using System;
 
 using Unity;
@@ -48,7 +49,7 @@ namespace ATM
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerThreadLifetimeManager());
             container.RegisterType<AccountController>(new InjectionConstructor());
-
+            container.RegisterType<CheckingAccountService>(new PerThreadLifetimeManager());
 
         }
     }

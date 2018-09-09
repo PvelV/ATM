@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace ATM.Tests.MockObjects
 {
-    public class FakeDbSet<T> : DbSet<T> where T : class
+    public class FakeDbSet<T> : IDbSet<T> where T : class
     {
         private readonly List<T> _data;
 
@@ -27,7 +27,11 @@ namespace ATM.Tests.MockObjects
             return _data.GetEnumerator();
         }
 
-        
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _data.GetEnumerator();
+        }
+
         public Expression Expression
         {
             get { return Expression.Constant(_data.AsQueryable()); }

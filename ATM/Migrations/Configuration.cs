@@ -8,6 +8,7 @@ namespace ATM.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using Unity;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ATM.Models.ApplicationDbContext>
     {
@@ -32,7 +33,8 @@ namespace ATM.Migrations
                 var user = new ApplicationUser { UserName = "admin@mvcatm.com", Email = "admin@mvcatm.com" };
                 userManager.Create(user, "passW0rd!");
 
-                var service = new CheckingAccountService(context);
+                var service = new UnityContainer().Resolve<CheckingAccountService>();
+
                 service.CreateCheckingAccount("admin", "user", user.Id, 1000);
 
                 context.Roles.AddOrUpdate(r => r.Name, new IdentityRole { Name = "Admin" });

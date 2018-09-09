@@ -1,4 +1,5 @@
 ﻿using ATM.Models;
+using ATM.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ namespace ATM.Services
 {
     public class CheckingAccountService
     {
-        private ApplicationDbContext db;
+        private IUnitOfWork db;
 
-        public CheckingAccountService(ApplicationDbContext dbContext)
+        public CheckingAccountService(IUnitOfWork unitOfWork)
         {
-            db = dbContext;
+            db = unitOfWork;
         }
 
         public void CreateCheckingAccount(string firstName, string lastName, string userId, decimal initialBalance)
@@ -26,7 +27,7 @@ namespace ATM.Services
                 ApplicationUserId = userId
             };
             db.CheckingAccounts.Add(checkingAccount);
-            db.SaveChanges();
+            db.Complete();
         }
     }
 }

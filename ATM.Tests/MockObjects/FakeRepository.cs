@@ -1,22 +1,23 @@
-﻿using System;
+﻿using ATM.Repository;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ATM.Repository
+namespace ATM.Tests.MockObjects
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class FakeRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly DbSet<TEntity> dbSet;
+        protected readonly List<TEntity> dbSet;
 
 
-        public Repository(DbSet<TEntity> _dbSet)
+        public FakeRepository()
         {
-            dbSet = _dbSet;
+            dbSet = new List<TEntity>();
         }
-        
+
 
 
         public void Add(TEntity entity)
@@ -37,12 +38,12 @@ namespace ATM.Repository
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return dbSet.Where(predicate);
+            return dbSet.AsQueryable().Where(predicate);
         }
 
         public TEntity Get(int id)
         {
-            return dbSet.Find(id);
+            return dbSet.Find(x => { dynamic a = x; return a.Id == id; } );
         }
 
         public IEnumerable<TEntity> GetAll()
@@ -57,12 +58,16 @@ namespace ATM.Repository
 
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
-            dbSet.RemoveRange(entities);
+            foreach (var entity in entities)
+            {
+                dbSet.Remove(entity);
+            }
         }
 
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            return dbSet.SingleOrDefault(predicate);
+            return dbSet.AsQueryable().SingleOrDefault(predicate);
         }
     }
+
 }
