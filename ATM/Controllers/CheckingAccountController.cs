@@ -1,4 +1,5 @@
 ﻿using ATM.Models;
+using ATM.Repository;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,12 @@ namespace ATM.Controllers
     [Authorize]
     public class CheckingAccountController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private IUnitOfWork db;
+
+        public CheckingAccountController(IUnitOfWork unitOfWork)
+        {
+            db = unitOfWork;
+        }
 
         // GET: CheckingAccount
         public ActionResult Index()
@@ -23,21 +29,21 @@ namespace ATM.Controllers
         public ActionResult Details()
         {
             var userId = User.Identity.GetUserId();
-            var account = db.CheckingAccounts.Where(c => c.ApplicationUserId == userId).First();
+             var account = db.CheckingAccounts.GetByUserId(userId);
             return View(account);
         }
 
         [Authorize(Roles = "Admin")]
         public ActionResult DetailsForAdmin(int id)
         {
-            var account = db.CheckingAccounts.Find(id);
+            var account = db.CheckingAccounts.Get(id);
             return View("Details", account);
         }
 
         [Authorize(Roles = "Admin")]
         public ActionResult List()
         {
-            return View(db.CheckingAccounts.ToList());
+            return View(db.CheckingAccounts.GetAll());
         }
 
         

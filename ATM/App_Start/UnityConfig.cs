@@ -1,6 +1,10 @@
+using ATM.Controllers;
+using ATM.Repository;
 using System;
 
 using Unity;
+using Unity.Injection;
+using Unity.Lifetime;
 
 namespace ATM
 {
@@ -42,6 +46,10 @@ namespace ATM
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>(new PerThreadLifetimeManager());
+            container.RegisterType<AccountController>(new InjectionConstructor());
+
+
         }
     }
 }

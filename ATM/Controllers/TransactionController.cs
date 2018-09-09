@@ -1,4 +1,5 @@
 ﻿using ATM.Models;
+using ATM.Repository;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,13 @@ namespace ATM.Controllers
     [Authorize]
     public class TransactionController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private IUnitOfWork db;
+
+        public TransactionController(IUnitOfWork unitOfWork)
+        {
+            db = unitOfWork;
+        }
+        
         // GET: Transaction
         public ActionResult Index()
         {
@@ -22,8 +29,6 @@ namespace ATM.Controllers
         [HttpGet]
         public ActionResult Deposit()
         {
-            var userId = User.Identity.GetUserId();
-            var checkingAccountId = db.CheckingAccounts.Where(a => a.ApplicationUserId == userId).First().Id;
             return View();
         }
 
@@ -32,8 +37,13 @@ namespace ATM.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = User.Identity.GetUserId();
+                var checkingAccountId = db.CheckingAccounts.GetByUserId(userId).Id;
+
+                transaction.CheckingAccountId = checkingAccountId;
+
                 db.Transactions.Add(transaction);
-                db.SaveChanges();
+                db.Complete();
                 return RedirectToAction("Index", "Home");
             }
             return View();
