@@ -10,13 +10,12 @@ namespace ATM.Tests.MockObjects
     public class FakeUnitOfWork : IUnitOfWork
     {
         public ICheckingAccountRepository CheckingAccounts { get; }
-
         public ITransactionRepository Transactions { get; }
 
         public FakeUnitOfWork()
         {
             CheckingAccounts = new FakeCheckingAccountRepository();
-
+            Transactions = new FakeTransactionRepository();
         }
 
 

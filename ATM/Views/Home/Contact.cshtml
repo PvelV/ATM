@@ -18,23 +18,42 @@
 
 
 <div id="formSection">
-
-
-    @using (Ajax.BeginForm("Message", "Home",
-        new AjaxOptions
-        {
-            HttpMethod = "post",
-            InsertionMode = InsertionMode.Replace,
-            UpdateTargetId = "formSection"
-        }))
-    {
-        <textarea name="message"></textarea>
+    <h3>@ViewBag.TheMessage</h3>
+    <form id="contactForm" method="post">
+        <textarea id="message" name="message"></textarea>
         <input type="submit" value="send" />
-    }
-
-
+        <img id="progress" style="display:none" src="~/Content/Images/rotatingdollar.gif" />
+    </form>
 </div>
+
+@section scripts
+{
+    <script>
+        $('#contactForm').submit(function (e) {
+            e.preventDefault();
+            $('#progress').show();
+            $.post('/Home/Message', { message: $('#message').val() })
+                .done(function (response) {
+                    setTimeout(function () { $('#formSection').html(response); }, 2000);
+                });
+        });
+    </script>
+}
+
+@*<div id="formSection">
+        @using (Ajax.BeginForm("Message", "Home",
+     new AjaxOptions
+     {
+         HttpMethod = "post",
+         InsertionMode = InsertionMode.Replace,
+         UpdateTargetId = "formSection"
+     }))
+        {
+            <textarea name="message"></textarea>
+            <input type="submit" value="send" />
+        }
+    </div>
 
 @section scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-}
+}*@
