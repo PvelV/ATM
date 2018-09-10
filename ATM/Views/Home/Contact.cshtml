@@ -20,14 +20,27 @@
 <div id="formSection">
     <h3>@ViewBag.TheMessage</h3>
     <form id="contactForm" method="post">
-        <textarea id="message" name="message"></textarea>
+        <textarea id="message" name="message" maxlength="150" data-bind="value:message,valueUpdate:'input'"></textarea>
         <input type="submit" value="send" />
+        <span data-bind="text:charactersRemaining"></span> characters remaining
         <img id="progress" style="display:none" src="~/Content/Images/rotatingdollar.gif" />
     </form>
 </div>
 
 @section scripts
 {
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+
+    <script>
+        function ContactViewModel() {
+            var self = this;
+
+            self.message = ko.observable('');
+            self.charactersRemaining = ko.computed(function () { return 150 - self.message().length; });
+        }
+        ko.applyBindings(new ContactViewModel());
+    </script>
+
     <script>
         $('#contactForm').submit(function (e) {
             e.preventDefault();
@@ -41,19 +54,19 @@
 }
 
 @*<div id="formSection">
-        @using (Ajax.BeginForm("Message", "Home",
-     new AjaxOptions
-     {
-         HttpMethod = "post",
-         InsertionMode = InsertionMode.Replace,
-         UpdateTargetId = "formSection"
-     }))
-        {
-            <textarea name="message"></textarea>
-            <input type="submit" value="send" />
-        }
-    </div>
+            @using (Ajax.BeginForm("Message", "Home",
+         new AjaxOptions
+         {
+             HttpMethod = "post",
+             InsertionMode = InsertionMode.Replace,
+             UpdateTargetId = "formSection"
+         }))
+            {
+                <textarea name="message"></textarea>
+                <input type="submit" value="send" />
+            }
+        </div>
 
-@section scripts{
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-}*@
+    @section scripts{
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    }*@
