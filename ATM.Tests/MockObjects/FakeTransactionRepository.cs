@@ -10,6 +10,9 @@ namespace ATM.Tests.MockObjects
 {
     public class FakeTransactionRepository : FakeRepository<Transaction>, ITransactionRepository
     {
-      
+        public IEnumerable<Transaction> GetAllTransactionByAccount(int accountId)
+        {
+            return dbSet.Where(t => t.CheckingAccountId == accountId);
+        }
     }
 }

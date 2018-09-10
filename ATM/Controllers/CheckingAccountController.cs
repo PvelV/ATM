@@ -29,7 +29,7 @@ namespace ATM.Controllers
         public ActionResult Details()
         {
             var userId = User.Identity.GetUserId();
-             var account = db.CheckingAccounts.GetByUserId(userId);
+            var account = db.CheckingAccounts.GetByUserId(userId);
             return View(account);
         }
 
@@ -46,72 +46,14 @@ namespace ATM.Controllers
             return View(db.CheckingAccounts.GetAll());
         }
 
-        
-
-        // GET: CheckingAccount/Create
-        public ActionResult Create()
+        public ActionResult Statement()
         {
-            return View();
-        }
+            var userId = User.Identity.GetUserId();
+            var account = db.CheckingAccounts.GetByUserId(userId);
 
-        // POST: CheckingAccount/Create
-        [HttpPost]
-        public ActionResult Create(CheckingAccount checkingAccount)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+            var transactions = db.Transactions.GetAllTransactionByAccount(account.Id);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CheckingAccount/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CheckingAccount/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CheckingAccount/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CheckingAccount/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(transactions);
         }
     }
 }

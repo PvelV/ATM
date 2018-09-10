@@ -12,5 +12,10 @@ namespace ATM.Repository
         public TransactionRepository(DbSet<Transaction> _dbSet) : base(_dbSet)
         {
         }
+
+        public IEnumerable<Transaction> GetAllTransactionByAccount(int accountId)
+        {
+            return dbSet.Where(t => t.CheckingAccountId == accountId).ToList();
+        }
     }
 }
