@@ -1,6 +1,10 @@
+using ATM.Repository;
+using ATM.Services;
+using ATM.Tests.MockObjects;
 using System;
 
 using Unity;
+using Unity.Lifetime;
 
 namespace ATM.Tests
 {
@@ -42,6 +46,8 @@ namespace ATM.Tests
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IUnitOfWork, FakeUnitOfWork>(new PerThreadLifetimeManager());
+            container.RegisterType<CheckingAccountService>(new PerThreadLifetimeManager());
         }
     }
 }

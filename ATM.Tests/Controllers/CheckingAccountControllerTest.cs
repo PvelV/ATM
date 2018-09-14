@@ -11,47 +11,58 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Unity;
 
 namespace ATM.Tests.Controllers
 {
     [TestFixture]
-    public class CheckingAccountControllerTest
+    public class TransactionControllerTest
     {
 
         private IUnitOfWork db;
+        private CheckingAccountService checkingAccountService;
+
         
         [SetUp]
         public void Setup()
         {
             db = new FakeUnitOfWork();
-
+            checkingAccountService =new CheckingAccountService(db);
         }
         
-        [Test]
-        public void BalanceIsCorrectAfterDeposit()
-        {
-            var service = new CheckingAccountService(db);
 
-            service.CreateCheckingAccount("testFN", "testLN", "0", 10);
-
-            Assert.That(db.CheckingAccounts.Count() == 1);
-            Assert.That(db.CheckingAccounts.GetByUserId("0").Balance == 10);
-        }
 
         [Test]
-        public void TransactionAddedToAccountBalance()
+        public void Deposit_Controller_OK()
         {
-
             var account = new CheckingAccount { Id = 1, Balance = 0, AccountNumber = "0000" };
             db.CheckingAccounts.Add(account);
 
-            var transaction = new Transaction { Amount = 200, CheckingAccountId = account.Id };
+            var transaction = new Transaction { Amount = 200, CheckingAccountId = account.Id,
+                TransactionType = TransactionTypes.Deposit };
 
             var transactionController = new TransactionController(db, new CheckingAccountService(db));
             transactionController.Deposit(transaction);
 
+            Assert.True(transactionController.ModelState.IsValid);
             Assert.AreEqual(transaction.Amount, account.Balance);
+        }
+
+
+        [Test]
+        public void Withdrawal_Controller()
+        {
+
+            var account = new CheckingAccount { Id = 1, Balance = 200, AccountNumber = "0000" };
+            db.CheckingAccounts.Add(account);
+
+            var transaction = new Transaction { Amount = 100, CheckingAccountId = account.Id,
+                TransactionType = TransactionTypes.Withdrawal };
+
+            var transactionController = new TransactionController(db, new CheckingAccountService(db));
+            transactionController.Withdraw(transaction);
+            Assert.AreEqual(100, account.Balance);
 
         }
     }

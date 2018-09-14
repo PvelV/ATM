@@ -51,7 +51,7 @@ namespace ATM.Controllers
             var userId = User.Identity.GetUserId();
             var account = db.CheckingAccounts.GetByUserId(userId);
 
-            var transactions = db.Transactions.GetAllTransactionByAccount(account.Id);
+            var transactions = db.Transactions.GetAllTransactionByAccount(account.Id).OrderByDescending(t => t.Id);
 
             return View(transactions);
         }

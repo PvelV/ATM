@@ -6,10 +6,10 @@
 
 <h2>Deposit</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <h4>Transaction</h4>
     <hr />
@@ -23,8 +23,7 @@
         </div>
     </div>
     @Html.HiddenFor(m => m.CheckingAccountId)
-
-
+    Model.TransactionType = ATM.Models.TransactionTypes.Deposit;
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

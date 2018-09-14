@@ -275,6 +275,14 @@
     <Compile Include="Migrations\201809081907154_TransactionsAdded4.Designer.cs">
       <DependentUpon>201809081907154_TransactionsAdded4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809141922568_transactiontype.cs" />
+    <Compile Include="Migrations\201809141922568_transactiontype.Designer.cs">
+      <DependentUpon>201809141922568_transactiontype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809141923380_transactiontype_virtual.cs" />
+    <Compile Include="Migrations\201809141923380_transactiontype_virtual.Designer.cs">
+      <DependentUpon>201809141923380_transactiontype_virtual.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CheckingAccount.cs" />
@@ -364,6 +372,7 @@
     <Content Include="Views\CheckingAccount\List.cshtml" />
     <Content Include="Views\Home\_Message.cshtml" />
     <Content Include="Views\CheckingAccount\Statement.cshtml" />
+    <Content Include="Views\Transaction\Withdraw.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -414,6 +423,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809081907154_TransactionsAdded4.resx">
       <DependentUpon>201809081907154_TransactionsAdded4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809141922568_transactiontype.resx">
+      <DependentUpon>201809141922568_transactiontype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809141923380_transactiontype_virtual.resx">
+      <DependentUpon>201809141923380_transactiontype_virtual.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
