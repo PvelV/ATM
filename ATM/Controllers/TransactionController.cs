@@ -1,6 +1,7 @@
 ﻿using ATM.Models;
 using ATM.Repository;
 using ATM.Services;
+using ATM.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,15 @@ namespace ATM.Controllers
     {
         private IUnitOfWork db;
         private CheckingAccountService checkingAccountService;
+        private PaymentService paymentService;
 
         public DepositResult ResultTypes { get; private set; }
 
-        public TransactionController(IUnitOfWork unitOfWork, CheckingAccountService service)
+        public TransactionController(IUnitOfWork unitOfWork, CheckingAccountService service, PaymentService payment)
         {
             db = unitOfWork;
             checkingAccountService = service;
+            paymentService = payment;
         }
 
         // GET: Transaction
@@ -34,31 +37,34 @@ namespace ATM.Controllers
         public ActionResult Withdraw()
         {
             var userId = User.Identity.GetUserId();
-            var checkingAccountId = db.CheckingAccounts.GetByUserId(userId).Id;
+            var account = db.CheckingAccounts.GetByUserId(userId);
 
-            return View(new Transaction { CheckingAccountId = checkingAccountId });
+            return View(new TransactionViewModel
+            {
+                Balance = account.Balance,
+                Transaction = new Transaction { CheckingAccountId = account.Id, TransactionType = TransactionTypes.Withdrawal }
+            });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Withdraw(Transaction transaction)
         {
-            var account = db.CheckingAccounts.Get(transaction.CheckingAccountId);
 
             if (ModelState.IsValid)
             {
                 var result = checkingAccountService.UpdateBalance(transaction);
 
-                switch (result) 
+                switch (result)
                 {
                     case DepositResult.OK:
                         return RedirectToAction("Index", "Home");
 
                     case DepositResult.InsufficientFunds:
-                        ModelState.AddModelError("Amount", "Insufficient funds.");
+                        ModelState.AddModelError("Transaction.Amount", "Insufficient funds.");
                         break;
                     case DepositResult.AccountIdNotExistent:
-                        ModelState.AddModelError("CheckingAccountId", "Account doesnt exist.");
+                        ModelState.AddModelError("Transaction.CheckingAccountId", "Account doesnt exist.");
                         break;
                     case DepositResult.ERR:
                         break;
@@ -67,8 +73,7 @@ namespace ATM.Controllers
                 }
 
             }
-
-            return View(transaction);
+            return View(new TransactionViewModel { Balance = db.CheckingAccounts.Get(transaction.CheckingAccountId).Balance, Transaction = transaction });
         }
 
 
@@ -76,9 +81,13 @@ namespace ATM.Controllers
         public ActionResult Deposit()
         {
             var userId = User.Identity.GetUserId();
-            var checkingAccountId = db.CheckingAccounts.GetByUserId(userId).Id;
+            var account = db.CheckingAccounts.GetByUserId(userId);
 
-            return View(new Transaction { CheckingAccountId = checkingAccountId });
+            return View(new TransactionViewModel
+            {
+                Balance = account.Balance,
+                Transaction = new Transaction { CheckingAccountId = account.Id, TransactionType = TransactionTypes.Deposit }
+            });
         }
 
         [HttpPost]
@@ -94,7 +103,55 @@ namespace ATM.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            return View();
+            return View(new TransactionViewModel
+            {
+                Balance = db.CheckingAccounts.Get(transaction.CheckingAccountId).Balance,
+                Transaction = transaction
+            });
+        }
+
+
+        [HttpGet]
+        public ActionResult TransferFunds()
+        {
+            var userId = User.Identity.GetUserId();
+            var account = db.CheckingAccounts.GetByUserId(userId);
+
+
+            return View(new PaymentViewModel
+            {
+                Balance = account.Balance,
+                Transaction = new Transaction { CheckingAccountId = account.Id, TransactionType = TransactionTypes.Withdrawal },
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TransferFunds(PaymentViewModel payment)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = paymentService.SettlePayment(payment);
+
+                switch (result)
+                {
+                    case DepositResult.OK:
+                        return RedirectToAction("Index", "Home");
+
+                    case DepositResult.InsufficientFunds:
+                        ModelState.AddModelError("Transaction.Amount", "Insufficient funds.");
+                        break;
+                    case DepositResult.AccountIdNotExistent:
+                        ModelState.AddModelError("Transaction.CheckingAccountId", "Account doesnt exist.");
+                        break;
+                    case DepositResult.ERR:
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            return View(payment);
         }
     }
 }

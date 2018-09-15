@@ -50,6 +50,8 @@ namespace ATM
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerThreadLifetimeManager());
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<CheckingAccountService>(new PerThreadLifetimeManager());
+            container.RegisterType<PaymentService>(new PerThreadLifetimeManager());
+
 
         }
     }

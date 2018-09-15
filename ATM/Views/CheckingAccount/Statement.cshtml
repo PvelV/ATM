@@ -19,7 +19,7 @@
     <tbody data-bind="foreach:currentTransactions">
         <tr>
             <td data-bind="text:Id"></td>
-            <td data-bind="text:formattedPrice(Amount)"></td>
+            <td data-bind="text:formattedPrice(Amount, TransactionType)"></td>
         </tr>
     </tbody>
 
@@ -39,8 +39,11 @@
 
 <script>
 
-    function formattedPrice(amount) {
+    function formattedPrice(amount, transactionType) {
         var price = amount.toFixed(2);
+        if (transactionType == 0) {
+            price -= 2*price;
+        }
         return price;
     }
 

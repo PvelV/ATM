@@ -1,5 +1,4 @@
-﻿@model ATM.Models.Transaction
-
+﻿@model ATM.ViewModels.TransactionViewModel
 @{
     ViewBag.Title = "Withdraw";
 }
@@ -24,14 +23,19 @@ new AjaxOptions
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Transaction.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Transaction.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Transaction.Amount, "", new { @class = "text-danger" })
             </div>
         </div>
-        @Html.HiddenFor(m => m.CheckingAccountId)        
-        Model.TransactionType = ATM.Models.TransactionTypes.Withdrawal;
+        <div class="form-group">
+            <div class="col-md-10">
+                Current Balance is: @Model.Balance
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.Transaction.CheckingAccountId)
+        @Html.HiddenFor(m => m.Transaction.TransactionType)
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
