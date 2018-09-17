@@ -13,6 +13,11 @@ namespace ATM.Repository
         {
         }
 
+        public CheckingAccount GetByAccountNumber(string accountNumber)
+        {
+            return dbSet.Where(c => c.AccountNumber == accountNumber).FirstOrDefault();
+        }
+
         public CheckingAccount GetByUserId(string id)
         {
             return dbSet.Where(c => c.ApplicationUserId == id).FirstOrDefault();

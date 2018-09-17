@@ -18,9 +18,24 @@ namespace ATM.Services
             db = unitOfWork;
         }
 
-        public DepositResult SettlePayment(PaymentViewModel payment)
+
+        public DepositResult SettlePayment(Payment payment)
         {
-            return DepositResult.ERR;
+            var senderAccount = db.CheckingAccounts.Get(payment.SenderCheckingAccountId);
+            var recipientAccount = db.CheckingAccounts.Get(payment.RecipientCheckingAccountId);
+
+            if (recipientAccount == null)
+                return DepositResult.AccountIdNotExistent;
+
+            if (senderAccount.Balance < payment.Amount)
+                return DepositResult.InsufficientFunds;
+
+            senderAccount.Balance -= payment.Amount;
+            recipientAccount.Balance += payment.Amount;
+
+            db.Complete();
+
+            return DepositResult.OK;
         }
     }
 }

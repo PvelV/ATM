@@ -127,10 +127,19 @@ namespace ATM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TransferFunds(PaymentViewModel payment)
+        public ActionResult TransferFunds(PaymentViewModel paymentVM)
         {
             if (ModelState.IsValid)
             {
+                var recipientAccountId = db.CheckingAccounts.GetByAccountNumber(paymentVM.RecipientAccountNumber).Id;
+
+                var payment = new Payment
+                {
+                    Amount = paymentVM.Transaction.Amount,
+                    RecipientCheckingAccountId = recipientAccountId,
+                    SenderCheckingAccountId = paymentVM.Transaction.CheckingAccountId
+                };
+
                 var result = paymentService.SettlePayment(payment);
 
                 switch (result)
@@ -151,7 +160,7 @@ namespace ATM.Controllers
                 }
 
             }
-            return View(payment);
+            return View(paymentVM);
         }
     }
 }

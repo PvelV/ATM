@@ -15,5 +15,10 @@ namespace ATM.Tests.MockObjects
         {
             return dbSet.Where(c => c.ApplicationUserId == id).FirstOrDefault();
         }
+
+        public CheckingAccount GetByAccountNumber(string accountNumber)
+        {
+            return dbSet.Where(c => c.AccountNumber == accountNumber).FirstOrDefault();
+        }
     }
 }

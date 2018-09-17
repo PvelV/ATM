@@ -22,6 +22,8 @@ namespace ATM.Tests.MockObjects
 
         public void Add(TEntity entity)
         {
+            dynamic e = entity;
+            e.Id = dbSet.Count;
             dbSet.Add(entity);
         }
 

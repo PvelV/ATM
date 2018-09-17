@@ -296,6 +296,7 @@
     <Compile Include="Models\DTOs\CheckingAccountDTO.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CheckingAccountRepository.cs" />
@@ -384,6 +385,7 @@
     <Content Include="Views\Home\_Message.cshtml" />
     <Content Include="Views\CheckingAccount\Statement.cshtml" />
     <Content Include="Views\Transaction\Withdraw.cshtml" />
+    <Content Include="Views\Transaction\TransferFunds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
