@@ -17,7 +17,8 @@ namespace ATM.ViewModels
         [Display(Name = "Recipient Account")]
         public string RecipientAccountNumber { get; set; }
         [Required]
-        public Transaction Transaction{ get; set; }
+        public decimal Amount { get; set; }
+        public int SenderAccountId { get; set; }
 
         public decimal Balance { get; set; }
 

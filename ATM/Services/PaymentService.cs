@@ -22,7 +22,7 @@ namespace ATM.Services
         public DepositResult SettlePayment(Payment payment)
         {
             var senderAccount = db.CheckingAccounts.Get(payment.SenderCheckingAccountId);
-            var recipientAccount = db.CheckingAccounts.Get(payment.RecipientCheckingAccountId);
+            var recipientAccount = db.CheckingAccounts.GetByAccountNumber(payment.RecipientCheckingAccountNumber);
 
             if (recipientAccount == null)
                 return DepositResult.AccountIdNotExistent;

@@ -84,19 +84,16 @@ namespace ATM.Tests.Controllers
             db.CheckingAccounts.Add(accountSender);
             db.CheckingAccounts.Add(accountRecipient);
 
-            var payment = new Payment
-            {
-                Amount = 100,
-                SenderCheckingAccountId = accountSender.Id,
-                RecipientCheckingAccountId = accountRecipient.Id,
-            };
+            
 
             var transactionController = new TransactionController(db, new CheckingAccountService(db), new PaymentService(db));
 
             var paymentVM = new PaymentViewModel
             {
                 RecipientAccountNumber = accountRecipient.AccountNumber,
-                Transaction = new Transaction { Amount = payment.Amount, CheckingAccountId = accountSender.Id }
+                Balance = accountSender.Balance,
+                SenderAccountId = accountSender.Id,
+                Amount = 100
             };
 
             transactionController.TransferFunds(paymentVM);

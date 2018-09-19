@@ -19,7 +19,7 @@ namespace ATM.Models
         [Required]
         public int SenderCheckingAccountId { get; set; }
         [Required]
-        public int RecipientCheckingAccountId { get; set; }
+        public string RecipientCheckingAccountNumber { get; set; }
 
         public virtual CheckingAccount SenderCheckingAccount { get; set; }
         public virtual CheckingAccount RecipientCheckingAccount { get; set; }

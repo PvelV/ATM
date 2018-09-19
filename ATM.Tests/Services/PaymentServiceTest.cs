@@ -28,7 +28,7 @@ namespace ATM.Tests.Services
             checkingAccountService.CreateCheckingAccount("testFN1", "testLN1", "0", 10);
             checkingAccountService.CreateCheckingAccount("testFN2", "testLN2", "1", 10);
 
-            var payment = new Payment { Amount = 2, SenderCheckingAccountId = 0, RecipientCheckingAccountId = 1 };
+            var payment = new Payment { Amount = 2, SenderCheckingAccountId = 0, RecipientCheckingAccountNumber = db.CheckingAccounts.GetByUserId("1").AccountNumber };
 
             var result = paymentService.SettlePayment(payment);
 
@@ -45,7 +45,7 @@ namespace ATM.Tests.Services
 
 
 
-            var payment = new Payment { Amount = 20, SenderCheckingAccountId = 0, RecipientCheckingAccountId = 1 };
+            var payment = new Payment { Amount = 20, SenderCheckingAccountId = 0, RecipientCheckingAccountNumber = db.CheckingAccounts.GetByUserId("1").AccountNumber };
 
             var result = paymentService.SettlePayment(payment);
 
@@ -60,7 +60,7 @@ namespace ATM.Tests.Services
             checkingAccountService.CreateCheckingAccount("testFN1", "testLN1", "0", 10);
             checkingAccountService.CreateCheckingAccount("testFN2", "testLN2", "1", 10);
             
-            var payment = new Payment { Amount = 2, SenderCheckingAccountId = 0, RecipientCheckingAccountId = 2 };
+            var payment = new Payment { Amount = 2, SenderCheckingAccountId = 0, RecipientCheckingAccountNumber = db.CheckingAccounts.GetByUserId("1").AccountNumber+"5" };
 
             var result = paymentService.SettlePayment(payment);
 

@@ -121,7 +121,7 @@ namespace ATM.Controllers
             return View(new PaymentViewModel
             {
                 Balance = account.Balance,
-                Transaction = new Transaction { CheckingAccountId = account.Id, TransactionType = TransactionTypes.Withdrawal },
+                SenderAccountId = account.Id
             });
         }
 
@@ -131,13 +131,12 @@ namespace ATM.Controllers
         {
             if (ModelState.IsValid)
             {
-                var recipientAccountId = db.CheckingAccounts.GetByAccountNumber(paymentVM.RecipientAccountNumber).Id;
 
                 var payment = new Payment
                 {
-                    Amount = paymentVM.Transaction.Amount,
-                    RecipientCheckingAccountId = recipientAccountId,
-                    SenderCheckingAccountId = paymentVM.Transaction.CheckingAccountId
+                    Amount = paymentVM.Amount,
+                    RecipientCheckingAccountNumber = paymentVM.RecipientAccountNumber,
+                    SenderCheckingAccountId = paymentVM.SenderAccountId
                 };
 
                 var result = paymentService.SettlePayment(payment);
