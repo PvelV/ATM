@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATM.Repository
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         ICheckingAccountRepository CheckingAccounts { get; }
         ITransactionRepository Transactions { get; }

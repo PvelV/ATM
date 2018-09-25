@@ -23,5 +23,9 @@ namespace ATM.Tests.MockObjects
         {
             return 1;
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

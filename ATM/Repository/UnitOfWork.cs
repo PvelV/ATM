@@ -29,5 +29,10 @@ namespace ATM.Repository
         {
             return db.SaveChanges();
         }
+
+        public void Dispose()
+        {
+            db.Dispose();
+        }
     }
 }
